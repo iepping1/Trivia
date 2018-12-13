@@ -51,8 +51,14 @@ public class HighScoreActivity extends AppCompatActivity implements HighScoreHel
         toast.show();
     }
 
-    // if player wants to restart game
+    // if player wants to retry game
     public void onResetClick(View v) {
+        Intent intent = new Intent(HighScoreActivity.this, GameActivity.class);
+        startActivity(intent);
+    }
+
+    // if player wants to end game
+    public void onResetClick2(View v) {
         Intent intent = new Intent(HighScoreActivity.this, MainActivity.class);
         startActivity(intent);
     }

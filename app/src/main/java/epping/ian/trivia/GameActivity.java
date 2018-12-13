@@ -15,7 +15,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class GameActivity extends AppCompatActivity implements TriviaHelper.Callback {
@@ -23,7 +24,7 @@ public class GameActivity extends AppCompatActivity implements TriviaHelper.Call
     String playerName;
     Question question;
     int score = 0;
-    List questions;
+    //List questions;
 
     // set up firebase
     private FirebaseAuth mAuth;
@@ -41,7 +42,14 @@ public class GameActivity extends AppCompatActivity implements TriviaHelper.Call
 
         // get questions from site
         TriviaHelper helper = new TriviaHelper(this);
-        helper.getNextQuestion(this);
+        if (savedInstanceState == null) {
+            helper.getNextQuestion(this);
+        }
+        else{
+            question = (Question) savedInstanceState.getSerializable("question");
+            score = savedInstanceState.getInt("score");
+            gotQuestion(question);
+        }
 
         // intialize and reference to database
         mAuth = FirebaseAuth.getInstance();
@@ -56,14 +64,7 @@ public class GameActivity extends AppCompatActivity implements TriviaHelper.Call
 
         int storedScore = score;
         outState.putInt("value", storedScore);
-    }
-
-    // retrieve score and settings after rotation or leaving app
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
-        int retrievedScore = savedInstanceState.getInt("value");
-        score = retrievedScore;
+        outState.putSerializable("question", question);
     }
 
     public void gotQuestion(Question question) {
@@ -73,36 +74,19 @@ public class GameActivity extends AppCompatActivity implements TriviaHelper.Call
         TextView questionView = findViewById(R.id.question);
         questionView.setText(question.getQuestion());
 
-        // set number of choices
-        int multipleChoice = 4;
-
         // fill answer buttons
         TextView answer1 = findViewById(R.id.answer1);
         TextView answer2 = findViewById(R.id.answer2);
         TextView answer3 = findViewById(R.id.answer3);
         TextView answer4 = findViewById(R.id.answer4);
 
-        questions = question.answers;
-        for (int i = 0; i < multipleChoice; i++) {
-            Random randomNumber = new Random();
-            int random = randomNumber.nextInt(questions.size());
-            String currentQuestion = (String) questions.get(random);
+        ArrayList<String> answers = question.getAnswers();
+        Collections.shuffle(answers);
+        answer1.setText(answers.get(0));
+        answer2.setText(answers.get(1));
+        answer3.setText(answers.get(2));
+        answer4.setText(answers.get(3));
 
-            // TODO: Smooth out code here
-            questions.remove(random);
-            if (i == 0) {
-                answer1.setText(currentQuestion);
-            }
-            if (i == 1) {
-                answer2.setText(currentQuestion);
-            }
-            if (i == 2) {
-                answer3.setText(currentQuestion);
-            }
-            if (i == 3) {
-                answer4.setText(currentQuestion);
-            }
-        }
     }
 
     public void gotError(String message) {
@@ -157,8 +141,6 @@ public class GameActivity extends AppCompatActivity implements TriviaHelper.Call
         }
     }
 
-    //public void createUser() {
-    //}
 
     // if player wants to see all highscores
     public void onScoreClick(View v) {

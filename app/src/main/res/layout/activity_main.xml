@@ -26,17 +26,19 @@
         android:gravity="center"
         android:layout_margin="5dp"
         android:text="Your Name is:"
-        android:textSize="20sp"/>
+        android:textSize="40sp"/>
 
     <EditText
         android:id="@+id/getName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="5dp"
+        android:layout_margin="15dp"
         android:inputType="textPersonName"
         android:text=""
-        android:textSize="20sp"/>
+        android:hint="....."
+        android:textSize="40sp"
+        android:background="@drawable/edit_text_border_color"/>
 
     <Button
         android:id="@+id/StartButton"

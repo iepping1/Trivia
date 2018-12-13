@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+// save questions until answered when page reloads < change oncreate
+
 // intro screen
 public class MainActivity extends AppCompatActivity {
 

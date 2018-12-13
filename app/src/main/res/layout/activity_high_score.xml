@@ -30,6 +30,15 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:onClick="onResetClick"
-        android:text="TRY AGAIN?"
+        android:text="REMATCH"
+        android:textSize="30sp"/>
+
+    <Button
+        android:id="@+id/resetButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:onClick="onResetClick2"
+        android:text="MAIN MENU"
         android:textSize="30sp"/>
 </LinearLayout>
