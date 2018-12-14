@@ -1,9 +1,11 @@
 package epping.ian.trivia;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,7 +40,7 @@ public class HighScoreActivity extends AppCompatActivity implements HighScoreHel
 
     public void gotHighScores(ArrayList<HighScore> highscores) {
 
-        // connect adapter and fill listview with data
+        // connect adapter and fill list with highscores
         HighScoresAdapter adapter = new HighScoresAdapter(this, R.layout.high_score, highscores);
         ListView ScoreList = findViewById(R.id.listScores);
         ScoreList.setAdapter(adapter);
@@ -46,7 +48,7 @@ public class HighScoreActivity extends AppCompatActivity implements HighScoreHel
 
     public void gotError(String message) {
 
-        // send message if error has occured
+        // send message if error occurs
         Toast toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
         toast.show();
     }

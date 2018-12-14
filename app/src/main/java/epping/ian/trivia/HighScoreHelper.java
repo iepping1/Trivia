@@ -15,7 +15,7 @@ import java.util.Collections;
 
 public class HighScoreHelper{
 
-    // initialize context and callback
+    // global context and callback
     Context context;
     Callback callback;
 
@@ -28,7 +28,6 @@ public class HighScoreHelper{
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference highscoreDatabase = database.getReference();
-    //FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     // constructor for context parameter
     public HighScoreHelper(Context context) {

@@ -5,18 +5,18 @@ import java.util.ArrayList;
 
 public class Question implements Serializable {
 
-    //create class for all menu fields
+    // create class for all game fields
     public String question, correctAnswer;
     public ArrayList<String> answers;
 
-    //store the fields of the menu
+    //store game fields
     public Question (String question, ArrayList<String> answers, String correctAnswer) {
         this.question = question;
         this.answers = answers;
         this.correctAnswer = correctAnswer;
     }
 
-    // retrieve the fields
+    // retrieve fields
     public String getQuestion() { return question; }
 
     public void setQuestion(String question) { this.question = question; }

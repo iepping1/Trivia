@@ -60,7 +60,7 @@
         android:layout_gravity="center"
         android:layout_margin="5dp"
         android:onClick="onScoreClick"
-        android:text="See your Current Score?" />
+        android:text="See previous High Scores?" />
     />
 
 </LinearLayout>

@@ -1,7 +1,6 @@
 package epping.ian.trivia;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,14 +16,13 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
 
 public class GameActivity extends AppCompatActivity implements TriviaHelper.Callback {
 
+    // global variables
     String playerName;
     Question question;
     int score = 0;
-    //List questions;
 
     // set up firebase
     private FirebaseAuth mAuth;
@@ -74,7 +72,7 @@ public class GameActivity extends AppCompatActivity implements TriviaHelper.Call
         TextView questionView = findViewById(R.id.question);
         questionView.setText(question.getQuestion());
 
-        // fill answer buttons
+        // fill buttons with answers
         TextView answer1 = findViewById(R.id.answer1);
         TextView answer2 = findViewById(R.id.answer2);
         TextView answer3 = findViewById(R.id.answer3);
@@ -86,7 +84,6 @@ public class GameActivity extends AppCompatActivity implements TriviaHelper.Call
         answer2.setText(answers.get(1));
         answer3.setText(answers.get(2));
         answer4.setText(answers.get(3));
-
     }
 
     public void gotError(String message) {
@@ -123,26 +120,22 @@ public class GameActivity extends AppCompatActivity implements TriviaHelper.Call
     // check to see if user is signed in and update interface
     public void onStart() {
         super.onStart();
-        //mAuth.addAuthStateListener(mAuthListener);
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
     }
 
     private void updateUI(FirebaseUser user){
         if (user != null) {
-            //user is signed in
+            // user is signed in
             String name = user.getDisplayName();
             Log.d("signed in", "onAuthStateChanged:signed_in" + user.getUid());
             }
         else {
             Log.d(" signed out", "onAuthStateChanged:signed_out");
-            //Intent main = new Intent(GameActivity.this, MainActivity.class);
-            //startActivity(main);
         }
     }
 
-
-    // if player wants to see all highscores
+    // if player wants to see previous highscores
     public void onScoreClick(View v) {
         HighScoreHelper newScore = new HighScoreHelper(this);
         newScore.postNewHighScores(highscoreDatabase, playerName, score);

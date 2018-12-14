@@ -20,7 +20,7 @@ public class TriviaHelper implements Response.Listener<JSONObject>, Response.Err
     private Context context;
     private Callback callback;
 
-    // call methods for error and succesful requests
+    // call methods for failed and succesful requests
     public interface Callback {
         void gotQuestion(Question question);
         void gotError(String message);
@@ -31,14 +31,14 @@ public class TriviaHelper implements Response.Listener<JSONObject>, Response.Err
         this.context = context;
     }
 
-    // retrieves categories from the API
+    // retrieves questions from API
     void getNextQuestion(Callback callback){
         this.callback = callback;
 
         // link to the API site
         String url = "http://jservice.io/api/category?id=267";
 
-        // request the data from the API
+        // request data from API
         RequestQueue queue = Volley.newRequestQueue(context);
         JsonObjectRequest request = new JsonObjectRequest(url, null, this, this);
         queue.add(request);
@@ -48,7 +48,7 @@ public class TriviaHelper implements Response.Listener<JSONObject>, Response.Err
     public void onResponse(JSONObject response) {
 
         try {
-            // retrieve clues and answers
+            // retrieve answers
             JSONArray array = response.getJSONArray("clues");
             ArrayList<String> answers = new ArrayList<>();
             Random randomNumber = new Random();
